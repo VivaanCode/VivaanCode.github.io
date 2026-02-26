@@ -9,7 +9,20 @@
 	}
 }
 
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
 @utility animate-fadeOut {
 	animation: fadeOut 0.75s ease-in-out forwards;
+}
+
+@utility animate-fadeIn {
+	animation: fadeIn 0.5s ease-in-out forwards;
 }
 

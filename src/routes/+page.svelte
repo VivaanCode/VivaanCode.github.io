@@ -1,11 +1,15 @@
 <script>
     import { onMount } from 'svelte';
     
-    let shouldFade = false;
+    let fade = false;
+    let content = false;
     
     onMount(() => {
         setTimeout(() => {
-            shouldFade = true;
+            fade = true;
+            setTimeout(() => {
+                content = true;
+            }, 750);
         }, 75);
     });
 </script>
@@ -21,16 +25,55 @@
         height: 100%;
     }
 
-    h1 {
-        font-family: "Inter", sans-serif;
-        text-align: center;
-        display:flex;
+    .loader {
+        position: absolute;
+        display: flex;
         justify-content: center;
         align-items: center;
         height: 100vh;
+        width: 100vw;
+        top: 0;
+        left: 0;
+    }
+
+    .main {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .card {
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(6px);
+        padding: 24px 28px;
+        border-radius: 14px;
+        line-height: 1.5;
+    }
+
+    h1 {
+        font-family: "Inter", sans-serif;
         margin: 0;
+    }
+
+    .card p {
+        opacity: 0.75;
     }
 
 </style>
 
-<h1 class="text-3xl font-semibold {shouldFade ? 'animate-fadeOut' : ''}">vivaan</h1> <!-- autocomplete really pulling its weight with this templating -->
+{#if !content}
+    <div class="loader absolute h-screen w-screen">
+    </div>
+{/if}
+
+{#if content}
+    <div class="main animate-fadeIn">
+        <div class="card p-3 rounded-lg">
+            <h1 class="text-xl font-bold">Hey, I'm Vivaan</h1>
+            <p>idk what to put here</p>
+        </div>
+    </div>
+{/if}
