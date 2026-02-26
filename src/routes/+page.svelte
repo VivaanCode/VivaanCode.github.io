@@ -1,8 +1,9 @@
 <script>
     import { onMount } from 'svelte';
+    import { browser } from '$app/environment';
     
-    let fade = false;
-    let content = false;
+    let fade = !browser;
+    let content = !browser;
     
     onMount(() => {
         setTimeout(() => {
