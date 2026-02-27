@@ -1,18 +1,26 @@
 <script>
     import { onMount } from 'svelte';
     import { browser } from '$app/environment';
+    import { nonpassive } from 'svelte/legacy';
     
-    let fade = !browser;
-    let content = !browser;
+    let content = false;
+    let header1 = !browser;
+    let header2 = !browser;
     
     onMount(() => {
         setTimeout(() => {
-            fade = true;
             setTimeout(() => {
                 content = true;
+                setTimeout(() => {
+                    header1 = true;
+                    setTimeout(() => {
+                        header2 = true; // some actually beautiful code right here
+                    }, 750);
+                }, 750);
             }, 750);
         }, 75);
     });
+    
 </script>
 
 <style>
@@ -67,14 +75,22 @@
 
 {#if !content}
     <div class="loader absolute h-screen w-screen">
+    <h1 class="text-xl font-bold animate-fadeIn">vivaan</h1>
     </div>
 {/if}
 
 {#if content}
     <div class="main animate-fadeIn">
         <div class="card p-3 rounded-lg">
-            <h1 class="text-xl font-bold">Hey, I'm Vivaan</h1>
-            <p>idk what to put here</p>
+
+            <h1
+                class="text-2xl font-bold"
+                class:animate-fadeIn={header1}
+                style:opacity={header1 ? 1 : 0}
+            >Hey, I'm Vivaan</h1>
+
+            <p class="animate-fadeIn">An aspiring student and backend/fullstack developer.</p>
+
         </div>
     </div>
 {/if}
