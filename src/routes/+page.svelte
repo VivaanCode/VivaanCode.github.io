@@ -1,26 +1,46 @@
-<script>
+<script lang="ts">
     import { onMount } from 'svelte';
     import { browser } from '$app/environment';
-    import { nonpassive } from 'svelte/legacy';
     
     let content = false;
     let header1 = !browser;
     let header2 = !browser;
-    
-    onMount(() => {
-        setTimeout(() => {
-            setTimeout(() => {
-                content = true;
-                setTimeout(() => {
-                    header1 = true;
-                    setTimeout(() => {
-                        header2 = true; // some actually beautiful code right here
-                    }, 750);
-                }, 750);
-            }, 750);
-        }, 75);
+
+    let subcard1: boolean = !browser;
+    let subcard2: boolean = !browser;
+    let subcard3: boolean = !browser;
+
+    function extend() {
+        const card = document.querySelector('.card') as HTMLElement;
+        if (card) {
+            card.classList.add('animate-extend');
+        }
+    }
+
+    const delay = (ms: number) => new Promise(res => setTimeout(res, ms));
+
+    onMount(async () => {
+        await delay(75);   // Initial wait
+        await delay(750);  // Logic wait
+        content = true;
+        
+        await delay(200);
+        header1 = true;
+        
+        await delay(200);
+        header2 = true;
+        
+        await delay(450);
+        extend();
+
+        await delay(100);
+        subcard1 = true;
+        await delay(100);
+        subcard2 = true;
+        await delay(100);
+        subcard3 = true;
     });
-    
+
 </script>
 
 <style>
@@ -60,6 +80,9 @@
         padding: 24px 28px;
         border-radius: 14px;
         line-height: 1.5;
+        height: 120px;
+        overflow: hidden;
+        transition: height 0.45s ease;
     }
 
     h1 {
@@ -84,13 +107,28 @@
         <div class="card p-3 rounded-lg">
 
             <h1
-                class="text-2xl font-bold"
-                class:animate-fadeIn={header1}
-                style:opacity={header1 ? 1 : 0}
+                class="text-2xl font-bold opacity-0"
+                class:animate-fadeIn={header1 ? 1 : 0}
             >Hey, I'm Vivaan</h1>
 
-            <p class="animate-fadeIn">An aspiring student and backend/fullstack developer.</p>
+            <p 
+                class:animate-fadeIn={header2 ? 1 : 0}
+                style="opacity:0;"
+                >An aspiring student and backend/fullstack developer.</p>
 
+            <div class="subcardContainer flex m-0">
+                <div class="subcard card p-3 rounded-lg w-30 m-4 ml-2 mr-2 opacity-0 cursor-pointer" class:animate-fadeIn={subcard1 ? 1 : 0}>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div>
+
+                <div class="subcard card p-3 rounded-lg w-30 m-4 ml-2 mr-2 opacity-0 cursor-pointer" class:animate-fadeIn={subcard2 ? 1 : 0}>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div>
+
+                <div class="subcard card p-3 rounded-lg w-30 m-4 ml-2 mr-2 opacity-0 cursor-pointer" class:animate-fadeIn={subcard3 ? 1 : 0}>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div>
+            </div>
         </div>
     </div>
 {/if}
