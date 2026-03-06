@@ -118,7 +118,8 @@
 
             <div class="subcardContainer flex m-0">
                 <div class="subcard card p-3 rounded-lg w-30 m-4 ml-2 mr-2 opacity-0 cursor-pointer" class:animate-fadeIn={subcard1 ? 1 : 0}>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <i class="ph ph-github-logo"></i>
+                    <a href="https://github.com">My github</a>
                 </div>
 
                 <div class="subcard card p-3 rounded-lg w-30 m-4 ml-2 mr-2 opacity-0 cursor-pointer" class:animate-fadeIn={subcard2 ? 1 : 0}>
